@@ -13,8 +13,11 @@
 
 # Author: Teddysun <i@teddysun.com>
 
+python_ver=$(ls /usr/bin|grep -e "^python[23]\.[1-9]\+$"|tail -1)
+eval $(ps -ef | grep "[0-9] ${python_ver} server\\.py m" | awk '{print "kill "$2}')
+
 name=ShadowsocksR
-BIN=/usr/local/shadowsocks/shadowsocks/server.py
+BIN="${python_ver} /usr/local/shadowsocks/shadowsocks/server.py"
 conf=/etc/shadowsocks.json
 
 start(){
