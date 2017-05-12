@@ -4,10 +4,10 @@ export PATH
 #=================================================================#
 #   System Required:  CentOS 6,7, Debian, Ubuntu                  #
 #   Description: One click Install ShadowsocksR Server            #
-#   Author: 91yun <https://twitter.com/91yun>                     #
+#   Author: bash99 <https://twitter.com/bash99>                     #
+#   Thanks: 91yun <https://twitter.com/91yun>                     #
 #   Thanks: @breakwa11 <https://twitter.com/breakwa11>            #
 #   Thanks: @Teddysun <i@teddysun.com>                            #
-#   Intro:  https://www.91yun.org/archives/2079                   #
 #=================================================================#
 
 
@@ -79,8 +79,8 @@ function pre_install(){
     fi
     # Set ShadowsocksR config password
     echo "Please input password for ShadowsocksR:"
-    read -p "(Default password: www.91yun.org):" shadowsockspwd
-    [ -z "$shadowsockspwd" ] && shadowsockspwd="www.91yun.org"
+    read -p "(Default password: fbx.go.to/hell):" shadowsockspwd
+    [ -z "$shadowsockspwd" ] && shadowsockspwd="fbx.go.to/hell"
     echo
     echo "---------------------------"
     echo "password = $shadowsockspwd"
@@ -145,12 +145,12 @@ function download_files(){
     # fi
     # Download ShadowsocksR chkconfig file
     if [ "$OS" == 'CentOS' ]; then
-        if ! wget --no-check-certificate https://raw.githubusercontent.com/91yun/shadowsocks_install/master/shadowsocksR -O /etc/init.d/shadowsocks; then
+        if ! wget --no-check-certificate https://raw.githubusercontent.com/bash99/shadowsocks_install/master/shadowsocksR -O /etc/init.d/shadowsocks; then
             echo "Failed to download ShadowsocksR chkconfig file!"
             exit 1
         fi
     else
-        if ! wget --no-check-certificate https://raw.githubusercontent.com/91yun/shadowsocks_install/master/shadowsocksR-debian -O /etc/init.d/shadowsocks; then
+        if ! wget --no-check-certificate https://raw.githubusercontent.com/bash99/shadowsocks_install/master/shadowsocksR-debian -O /etc/init.d/shadowsocks; then
             echo "Failed to download ShadowsocksR chkconfig file!"
             exit 1
         fi
@@ -213,10 +213,10 @@ function config_shadowsocks(){
     "password": "${shadowsockspwd}",
     "timeout": 120,
     "udp_timeout": 60,
-    "method": "chacha20",
-    "protocol": "auth_sha1_v4_compatible",
+    "method": "rc4",
+    "protocol": "auth_aes128_md5",
     "protocol_param": "",
-    "obfs": "tls1.2_ticket_auth_compatible",
+    "obfs": "plain",
     "obfs_param": "",
     "dns_ipv6": false,
     "connect_verbose_info": 1,
@@ -258,10 +258,9 @@ function install_ss(){
         echo -e "Server IP: \033[41;37m ${IP} \033[0m"
         echo -e "Server Port: \033[41;37m ${shadowsocksport} \033[0m"
         echo -e "Password: \033[41;37m ${shadowsockspwd} \033[0m"
-        echo -e "Protocol: \033[41;37m auth_sha1_v4 \033[0m"
-        echo -e "obfs: \033[41;37m tls1.2_ticket_auth \033[0m"
-        echo -e "Encryption Method: \033[41;37m chacha20 \033[0m"
-        echo "Welcome to visit:https://www.91yun.org/archives/2079"
+        echo -e "Protocol: \033[41;37m auth_aes128_md5 \033[0m"
+        echo -e "obfs: \033[41;37m plain \033[0m"
+        echo -e "Encryption Method: \033[41;37m rc4 \033[0m"
         echo "If you want to change protocol & obfs, reference URL:"
         echo "https://github.com/breakwa11/shadowsocks-rss/wiki/Server-Setup"
         echo
